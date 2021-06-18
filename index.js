@@ -4,28 +4,26 @@ const client = new Discord.Client();
 const {
     prefix,
     token,
-    bot_age,
-    words_array,
-    bot_info,
     } = require('./config.json');
 
 client.once('ready', () => {
-    console.log(prefix);
-    console.log(token);
-    console.log(bot_age);
-    console.log(words_array[0]);
-    console.log(words_array[1]);
-    console.log(words_array[2]);
-    console.log(bot_info.name);
-    console.log(bot_info.version);
+    console.log('Bot Started.');
 });
 
 client.login(token);
 
 client.on('message', message => {
-    if (message.content === `${prefix}pong`) {
-        message.channel.send('Pong!');
-    } else if (message.content === `${prefix}sad`) {
-        message.channel.send('Hello');
+    // Says the name of the server
+    if (message.content === `${prefix}name`) {
+        message.channel.send(message.guild.name);
+    }
+    // Says how many people are online right now
+    else if (message.content === `${prefix}online`) {
+        message.channel.send(`Total Members: \n ${message.guild.memberCount}`);
+    }
+    // Says the Username and ID of the sender
+    else if (message.content === `${prefix}me`) {
+        message.channel.send(`Username: \n ${message.author.username}`);
+        message.channel.send(`ID: \n ${message.author.id}`);
     }
 });
